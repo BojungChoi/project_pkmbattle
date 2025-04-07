@@ -427,9 +427,20 @@ void handleClient(int playerId, std::shared_ptr<tcp::socket> socket) {
 }
 
 void RunChannel(int port){
+
+}
+
+
+// --- 서버 메인 ---
+int main() {
+    //std::thread ch1(RunChannel, 9000);
+    //std::thread ch2(RunChannel, 9001);
+
+    //ch1.join();
+    //ch2.join();
     try {
         asio::io_context io;
-        tcp::acceptor acceptor(io, tcp::endpoint(tcp::v4(), port));
+        tcp::acceptor acceptor(io, tcp::endpoint(tcp::v4(), 9000));
         std::cout << "[Server] 대기 중...\n";
 
         while (true) {
@@ -449,17 +460,6 @@ void RunChannel(int port){
     catch (std::exception& e) {
         std::cerr << "[Server 오류] " << e.what() << "\n";
     }
-}
-
-
-// --- 서버 메인 ---
-int main() {
-    std::thread ch1(RunChannel, 9000);
-    std::thread ch2(RunChannel, 9001);
-
-    ch1.join();
-    ch2.join();
-    
     return 0;
 }
 
